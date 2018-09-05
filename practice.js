@@ -114,8 +114,23 @@ var numbersArray = [1,2,34,54,55,34,32,11,19,17,54,66,13];
 */
 
 //Code Here
-
-
+const divider = (numbersArray) => { 
+  return [ 
+    numbersArray.filter(elem => elem % 2 === 0), 
+    numbersArray.filter(elem => elem % 2 !== 0)
+  ]
+}
+// const divider = (numbersArray) => { 
+//   const newArr = [[],[]]; 
+//   numbersArray.forEach(elem => {
+//     if (elem % 2 === 0) {
+//       newArr[0].push(elem);
+//     } else {
+//       newArr[1].push(elem); 
+//     }
+//   })
+//   return newArr; 
+// }
 
 ////////// PROBLEM 7 //////////
 
@@ -125,6 +140,7 @@ var getRandomArbitrary = function() {
 };
 // Do not edit the code above.
 
+var numbers = [0,3,4,5,6,7,9,14,17,24,25,26,29,30];
 /* 
   var numbers = [0,3,4,5,6,7,9,14,17,24,25,26,29,30];
   Above you're given a function that will return a random number between 0 and 30. There is also a commented out array full of numbers to help you visualize what your function will be receiving.
@@ -135,8 +151,33 @@ var getRandomArbitrary = function() {
 */
 
 //Code Here
+const finder = (arr) => {
+  let random = getRandomArbitrary(); 
+  return arr.includes(random)
+}
 
+// USE CASE WHERE FORLOOP IS BETTER THAN FOREACH. 
+// Even tho the return statement within forEach terminates the loop, forEach still returns its own return value of undefined. Consequently, you must assign true to a variable that you declare & return before & after the forEach loop.
+// The forLoop does not return anything. Consequently, the return statement within the forLoop terminates the loop and returns the return's value. 
+// const finder = (arr) => { 
+//   let random = getRandomArbitrary();
+//   for (let i = 0; i < arr.length; i++) {
+//     if(arr[i] === random) { return true; }
+//   }
+//   return false; 
+// }
 
+// const finder = (arr) => {
+//   let random = getRandomArbitrary(); 
+//   let match = false;
+//   arr.forEach(e => {
+//     if(e === random){
+//       return match = true;
+//     }
+//   })
+//   return match; 
+// }
+// console.log(finder(numbers));
 
 ////////// PROBLEM 8 //////////
 
@@ -148,7 +189,7 @@ var myGroceryList = ['chips', 'pizza', 'hotpockets', 'MtnDew', 'corndogs'];
   Here we're going to write a function that mimics going shopping and checking things off of our grocery list and adding new items to our list.
 
   Write a function called removeItem that is given two arguments, the first is myGroceryList, and the second is an item to remove from myGroceryList. 
-  If the second argument (or the item to add or remove) matches an item in myGroceryList, remove that item from the your grocery list and return the new, updated grocery list.
+  If the second argument (or the item to add or remove) matches an item in myGroceryList, remove that item from the grocery list and return the new, updated grocery list.
 
   Once you do that, write another function called addItem that is given two arguments, the first is myGroceryList and the second is an item to add to your grocery list. 
   In addItem add the item you passed in to myGroceryList then return the new, updated grocery list.
@@ -164,9 +205,18 @@ var myGroceryList = ['chips', 'pizza', 'hotpockets', 'MtnDew', 'corndogs'];
 */
 
 //Code Here
+const removeItem = (myGroceryList, item) => {
+  if (!item) { return [] };
+  return myGroceryList.filter(e => e !== item); 
+}
+const addItem = (myGroceryList, item) => {
+  if (!item) { return [] }; 
+  // return myGroceryList.push(item); // this doesnt work bc push returns the index number and we want to return an updated myGroceryList. So break into two lines: 
+  myGroceryList.push(item);
+  return myGroceryList;
+}
 
-
-
+// console.log(addItem(myGroceryList,"pizza"))
 ////////// PROBLEM 9 //////////
 
 /*
@@ -174,13 +224,22 @@ var myGroceryList = ['chips', 'pizza', 'hotpockets', 'MtnDew', 'corndogs'];
 */
 
 //Code Here
-
-
+const maker = () => {
+  const arr = [];
+  // for(let i = 1; i <= 215; i++){
+  //   arr.push(i);
+  // }
+  for(let i = 0; i < 215; i++){
+    arr[i] = i+1; 
+  }
+  return arr; 
+}
+// console.log(maker())
 
 ////////// PROBLEM 10 //////////
 
 // Do not edit the code below.
-var numbers = [5, '9', 16, 19, '25', '34', 48];
+var numbers = [ 5, '9', 16, 19, '25', '34', 48 ];
 // Do not edit the code above.
 
 /*
@@ -190,7 +249,9 @@ var numbers = [5, '9', 16, 19, '25', '34', 48];
 */
   
 //Code Here
-
+const addTen = (numbers) => {
+  return numbers.map(e => parseInt(e) + 10);
+}
 
 
 ////////// PROBLEM 11 //////////
@@ -215,7 +276,7 @@ for(var i = 0; i < num2; i++){
 */
 
 //Code Here
-
+const longer = (arr1, arr2) => arr1.length >= arr2.length ? arr1 : arr2; 
 
 
 /*
@@ -227,8 +288,9 @@ for(var i = 0; i < num2; i++){
 */
 
 //Code Here
-
-
+const both = (arr1, arr2) => {
+  return arr1.filter(e => arr2.includes(e))
+}
 
 ////////// PROBLEM 12 //////////
 
@@ -267,7 +329,7 @@ var colt = {
 */
 
 //Code Here
-
+devMountainEmployees.push(tyler, cahlan, ryan, colt); 
 
 
 /*
@@ -276,7 +338,27 @@ var colt = {
 */
 
 //Code Here
+// Another example of keeping in mind the return value of methods:
+// I first thought of solution 1 but it didn't work until I re-assigned 
+// the return value to devMountainEmployees: 
 
+// solution 1 - I need to re-assign because filter returns a new array: 
+devMountainEmployees = devMountainEmployees.filter(e => e.name !== 'Cahlan');
+// Solution 2 
+// devMountainEmployees.forEach((e,i) => {
+//   if (e.name === 'Cahlan') {
+//     devMountainEmployees.splice(i,1)
+//   }
+//   return devMountainEmployees; 
+// }); 
+// solution 3
+// for (let i = 0; i < devMountainEmployees.length; i++) {
+//   if (devMountainEmployees[i].name === 'Cahlan') {
+//     devMountainEmployees.splice(i,1)
+//   }
+// }
+
+// console.log(devMountainEmployees);
 
 
 ////////// PROBLEM 13 //////////
@@ -288,6 +370,7 @@ var colt = {
 */
 
 //Code Here
+let users = [];
 
 
 
@@ -307,6 +390,19 @@ var user1 = {
 // Do not edit the code above.
 
 //Code Here
+var user2 = {
+  name: 'Jessica MacIsaac',
+  email: 'jessica@gmail.com',
+  password: 'iLovebooks',
+  username: 'infiniteLoop'
+};
+var user3 = {
+  name: 'Jake MacIsaac',
+  email: 'jake@gmail.com',
+  password: 'iLovemovies',
+  username: 'infiniteLoop'
+};
+users.push(user1, user2, user3);
 
 
 
@@ -321,7 +417,14 @@ var user1 = {
 */
 
 //Code Here
-
+// solution 1 
+users = users.filter(e => e.name !== "Tyler McGinnis");
+// solution 2 
+// for(let i = 0; i < users.length; i++) {
+//   if (users[i].name === 'Tyler McGinnis') {
+//     users.splice(i,1)
+//   }
+// }
 
 
 /*
